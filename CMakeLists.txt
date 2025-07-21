@@ -6,4 +6,5 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(doom-launcher
     src/main.cpp
     src/launcher.cpp
+    src/mod_scanner.cpp
 )

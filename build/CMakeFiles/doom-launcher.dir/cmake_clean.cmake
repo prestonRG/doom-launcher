@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/doom-launcher.dir/src/launcher.cpp.o.d"
   "CMakeFiles/doom-launcher.dir/src/main.cpp.o"
   "CMakeFiles/doom-launcher.dir/src/main.cpp.o.d"
+  "CMakeFiles/doom-launcher.dir/src/mod_scanner.cpp.o"
+  "CMakeFiles/doom-launcher.dir/src/mod_scanner.cpp.o.d"
   "doom-launcher"
   "doom-launcher.pdb"
 )

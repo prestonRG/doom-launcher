@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/preston/Development/doom_launcher/src/launcher.cpp" "CMakeFiles/doom-launcher.dir/src/launcher.cpp.o" "gcc" "CMakeFiles/doom-launcher.dir/src/launcher.cpp.o.d"
   "/home/preston/Development/doom_launcher/src/main.cpp" "CMakeFiles/doom-launcher.dir/src/main.cpp.o" "gcc" "CMakeFiles/doom-launcher.dir/src/main.cpp.o.d"
+  "/home/preston/Development/doom_launcher/src/mod_scanner.cpp" "CMakeFiles/doom-launcher.dir/src/mod_scanner.cpp.o" "gcc" "CMakeFiles/doom-launcher.dir/src/mod_scanner.cpp.o.d"
   "" "doom-launcher" "gcc" "CMakeFiles/doom-launcher.dir/link.d"
   )
 

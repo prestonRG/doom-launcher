@@ -152,53 +152,13 @@ void DoomLauncher::run() {
     }
 }
 
-// Visual menus
+// Backup selection menu
 void DoomLauncher::backupVisualMenu() {
     std::cout << "#G) Backup gzdoom.ini" << std::endl;
     std::cout << "#Z) Backup zandronum.ini" << std::endl;
     std::cout << std::endl;
     std::cout << "#0) Exit" << std::endl;
 }
-
-void DoomLauncher::engineVisualMenu() {
-    std::cout << "1 GZDOOM" << std::endl;
-    std::cout << "2 ZANDRONUM" << std::endl;
-    std::cout << std::endl;
-    std::cout << "#B) Make a backup" << std::endl;
-    std::cout << "#0) Exit" << std::endl;
-}
-
-void DoomLauncher::modVisualMenu() {
-    std::cout << "1 VANILLA" << std::endl;
-    std::cout << "2 VANILLA PLUS" << std::endl;
-    std::cout << "3 BRUTAL DOOM" << std::endl;
-    std::cout << "4 BRUTAL DOOM 64" << std::endl;
-    std::cout << "5 BRUTAL DOOM PLATINUM" << std::endl;
-    std::cout << "6 PROJECT BRUTALITY" << std::endl;
-    std::cout << "7 VOXEL DOOM" << std::endl;
-    std::cout << std::endl;
-    std::cout << "#B) Make a backup" << std::endl;
-    std::cout << "#0) Exit" << std::endl;
-}
-
-void DoomLauncher::wadVisualMenu() {
-    std::cout << " 1 ULTIMATE DOOM + SIGIL" << std::endl;
-    std::cout << " 2 DOOM II: Hell on Earth" << std::endl;
-    std::cout << " 3 DOOM II: Master Levels" << std::endl;
-    std::cout << " 4 TNT: Evilution" << std::endl;
-    std::cout << " 5 The Plutonia Experiment" << std::endl;
-    std::cout << " 6 Eviternity" << std::endl;
-    std::cout << " 7 Eviternity II" << std::endl;
-    std::cout << " 8 Hellbound" << std::endl;
-    std::cout << " 9 Ozonia" << std::endl;
-    std::cout << "10 Valiant" << std::endl;
-    std::cout << "11 Amalgoom" << std::endl;
-    std::cout << std::endl;
-    std::cout << "#B) Make a backup" << std::endl;
-    std::cout << "#0) Exit" << std::endl;
-}
-
-// Selection menu functions
 int DoomLauncher::backupSelections() {
     std::string choice;
     std::cout << "Choose which game to make a backup of: ";
@@ -231,7 +191,14 @@ int DoomLauncher::backupSelections() {
         return 3;  // Stay on backup menu
     }
 }
-
+// Engine selection menu
+void DoomLauncher::engineVisualMenu() {
+    std::cout << "1 GZDOOM" << std::endl;
+    std::cout << "2 ZANDRONUM" << std::endl;
+    std::cout << std::endl;
+    std::cout << "#B) Make a backup" << std::endl;
+    std::cout << "#0) Exit" << std::endl;
+}
 int DoomLauncher::engineSelections() {
     std::string choice;
     std::cout << "Select an engine to use (1-2): ";
@@ -258,7 +225,19 @@ int DoomLauncher::engineSelections() {
         return 0;  // Stay on engine menu
     }
 }
-
+// Mod selection menu
+void DoomLauncher::modVisualMenu() {
+    std::cout << "1 VANILLA" << std::endl;
+    std::cout << "2 VANILLA PLUS" << std::endl;
+    std::cout << "3 BRUTAL DOOM" << std::endl;
+    std::cout << "4 BRUTAL DOOM 64" << std::endl;
+    std::cout << "5 BRUTAL DOOM PLATINUM" << std::endl;
+    std::cout << "6 PROJECT BRUTALITY" << std::endl;
+    std::cout << "7 VOXEL DOOM" << std::endl;
+    std::cout << std::endl;
+    std::cout << "#B) Make a backup" << std::endl;
+    std::cout << "#0) Exit" << std::endl;
+}
 int DoomLauncher::modSelections() {
     std::string choice;
     std::cout << "Select a modpack to use (1-7): ";
@@ -303,7 +282,23 @@ int DoomLauncher::modSelections() {
         return 1;  // Stay on mod menu
     }
 }
-
+// Wad selection menu
+void DoomLauncher::wadVisualMenu() {
+    std::cout << " 1 ULTIMATE DOOM + SIGIL" << std::endl;
+    std::cout << " 2 DOOM II: Hell on Earth" << std::endl;
+    std::cout << " 3 DOOM II: Master Levels" << std::endl;
+    std::cout << " 4 TNT: Evilution" << std::endl;
+    std::cout << " 5 The Plutonia Experiment" << std::endl;
+    std::cout << " 6 Eviternity" << std::endl;
+    std::cout << " 7 Eviternity II" << std::endl;
+    std::cout << " 8 Hellbound" << std::endl;
+    std::cout << " 9 Ozonia" << std::endl;
+    std::cout << "10 Valiant" << std::endl;
+    std::cout << "11 Amalgoom" << std::endl;
+    std::cout << std::endl;
+    std::cout << "#B) Make a backup" << std::endl;
+    std::cout << "#0) Exit" << std::endl;
+}
 int DoomLauncher::wadSelections() {
     std::string choice;
     std::cout << "Select an iwad (1-11): ";

@@ -41,6 +41,8 @@ public:
     int wadSelections();
     int backupSelections();
 
+    void loadOrderMenu();
+
     // Launch functions
     [[noreturn]] void launchDoom(const std::string& iwad, const std::string& megawad = "", const std::string& secondMegawad = "");
     void launchBD64();

@@ -177,6 +177,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/doom-launcher.dir/build.make CMakeFiles/doom-launcher.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/mod_scanner.o: src/mod_scanner.cpp.o
+.PHONY : src/mod_scanner.o
+
+# target to build an object file
+src/mod_scanner.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/doom-launcher.dir/build.make CMakeFiles/doom-launcher.dir/src/mod_scanner.cpp.o
+.PHONY : src/mod_scanner.cpp.o
+
+src/mod_scanner.i: src/mod_scanner.cpp.i
+.PHONY : src/mod_scanner.i
+
+# target to preprocess a source file
+src/mod_scanner.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/doom-launcher.dir/build.make CMakeFiles/doom-launcher.dir/src/mod_scanner.cpp.i
+.PHONY : src/mod_scanner.cpp.i
+
+src/mod_scanner.s: src/mod_scanner.cpp.s
+.PHONY : src/mod_scanner.s
+
+# target to generate assembly for a file
+src/mod_scanner.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/doom-launcher.dir/build.make CMakeFiles/doom-launcher.dir/src/mod_scanner.cpp.s
+.PHONY : src/mod_scanner.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -192,6 +216,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/mod_scanner.o"
+	@echo "... src/mod_scanner.i"
+	@echo "... src/mod_scanner.s"
 .PHONY : help
 
 
