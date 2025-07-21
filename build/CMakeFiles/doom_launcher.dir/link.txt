@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/doom_launcher.dir/link.d CMakeFiles/doom_launcher.dir/src/main.cpp.o CMakeFiles/doom_launcher.dir/src/launcher.cpp.o -o doom_launcher
