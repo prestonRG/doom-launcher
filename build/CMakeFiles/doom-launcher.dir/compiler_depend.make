@@ -714,8 +714,11 @@ doom-launcher: /usr/lib/Scrt1.o \
   /usr/lib/libm.so.6 \
   /usr/lib/libmvec.so.1 \
   CMakeFiles/doom-launcher.dir/src/launcher.cpp.o \
-  CMakeFiles/doom-launcher.dir/src/main.cpp.o
+  CMakeFiles/doom-launcher.dir/src/main.cpp.o \
+  CMakeFiles/doom-launcher.dir/src/mod_scanner.cpp.o
 
+
+CMakeFiles/doom-launcher.dir/src/mod_scanner.cpp.o:
 
 CMakeFiles/doom-launcher.dir/src/launcher.cpp.o:
 

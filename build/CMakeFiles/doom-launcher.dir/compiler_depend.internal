@@ -719,4 +719,5 @@ doom-launcher
  /usr/lib/libmvec.so.1
  /home/preston/Development/doom_launcher/build/CMakeFiles/doom-launcher.dir/src/launcher.cpp.o
  /home/preston/Development/doom_launcher/build/CMakeFiles/doom-launcher.dir/src/main.cpp.o
+ /home/preston/Development/doom_launcher/build/CMakeFiles/doom-launcher.dir/src/mod_scanner.cpp.o
 

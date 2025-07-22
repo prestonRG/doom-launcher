@@ -40,7 +40,10 @@ public:
     int modSelections();
     int wadSelections();
     int backupSelections();
+    int configureMods();
 
+    std::vector<std::string> gzdScanner();
+    std::vector<std::string> zandScanner();
     void loadOrderMenu();
 
     // Launch functions
