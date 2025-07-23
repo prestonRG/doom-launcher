@@ -33,7 +33,7 @@ public:
     void engineMenu();
     void gameMenu();
     void modMenu();
-    void wadMenu();
+    void megawadMenu();
     void backupMenu();
 
     // Selection menu functions
