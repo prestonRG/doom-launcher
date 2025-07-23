@@ -31,6 +31,7 @@ public:
 
     // Menus
     void engineMenu();
+    void gameMenu();
     void modMenu();
     void wadMenu();
     void backupMenu();

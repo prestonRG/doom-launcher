@@ -124,6 +124,44 @@ void DoomLauncher::engineMenu() {
     }
 }
 
+// Game menu
+void DoomLauncher::gameMenu() {
+    std::cout << "1 Doom" << std::endl;
+    std::cout << "2 Doom II" << std::endl;
+    std::cout << "3 Plutonia" << std::endl;
+    std::cout << "4 TNT" << std::endl;
+    std::cout << std::endl;
+    std::cout << "#B) Make a backup" << std::endl;
+    std::cout << "#0) Exit" << std::endl;
+
+    std::string choice;
+    std::cout << "Select a game to use (1-4): ";
+    std::cin >> choice;
+
+    // Immediately gets the relevant mods when an engine is selected.
+    if (choice == "1") {
+        doomEngine = "gzdoom";
+        gzdScanner();
+        modMenu();  // Go to mod menu
+    }
+    else if (choice == "2") {
+        doomEngine = "zandronum";
+        zandScanner();
+        wadMenu();  // Skip to wad menu
+    }
+    else if (choice == "0") {
+        std::cout << "Exiting..." << std::endl;
+        exit(0);
+    }
+    else if (choice == "B") {
+        backupMenu();  // Go to backup menu
+    }
+    else {
+        std::cout << "Invalid selection! Try again." << std::endl;
+        engineMenu();  // Stay on engine menu
+    }
+}
+
 int DoomLauncher::configureMods() {
     // Visually list mods in current order again.
     for (int i = 0; i < modList.size(); i++) {
