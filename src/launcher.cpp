@@ -294,6 +294,7 @@ void DoomLauncher::modMenu() {
 }
 // Wad menu
 void DoomLauncher::megawadMenu() {
+    megawadScanner();
     // Display megawad options.
     std::cout << "Available megawads:" << std::endl;
     for (int i = 0; i < megawadList.size(); i++) {

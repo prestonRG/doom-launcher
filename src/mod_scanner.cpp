@@ -31,29 +31,25 @@ std::vector<std::string> findMegawads(std::string megawadPath) {
     std::cout << "Looking in: " << megawadPath << std::endl;
 
     // Looks at all of the files in the specified directory and returns relevant ones.
-    for (auto& file : std::filesystem::directory_iterator(megawadPath)) {
-        std::string filename = file.path().filename();
-        std::string extension = file.path().extension();
-        std::cout << "Found: " << filename << std::endl;
+    for (auto& file : std::filesystem::recursive_directory_iterator(megawadPath)) {
+        if (file.is_regular_file()) {
+            std::string filename = file.path().filename();
+            std::string extension = file.path().extension();
+            std::cout << "Found: " << filename << std::endl;
+            // Checks for any .wad files in the specified path.
 
-        // Checks for any .wad files in the specified path.
-        if (extension == ".wad") {
+            if (extension == ".wad") {
             megawads.push_back(file.path().string());
             std::cout << file.path() << std::endl;
-        }
-        else {
-            std::cout << "Couldn't find anything!" << std::endl;
+            }
         }
     }
-    // Recursively scan all folders
-    for (const auto& file : std::filesystem::recursive_directory_iterator(megawadPath)) {
-        std::string filename = file.path().filename();
-        std::string extension = file.path().extension();
-        std::cout << "Found: " << filename << std::endl;
-        if (extension == ".wad") {
-            megawads.push_back(file.path().string());
-            std::cout << file.path() << std::endl;
-        }
+    
+    if (megawads.empty()) {
+        std::cout << "No .wad files found in " << megawadPath << std::endl;
+    }
+    else {
+        std::cout << "Found " << megawads.size() << " .wad files" << std::endl;
     }
 
     return megawads;
