@@ -80,6 +80,7 @@ DoomLauncher::DoomLauncher() {
     };
 }
 
+// Launches doom with all selected settings.
 void DoomLauncher::launchDoom(const std::string& iwad, const std::string& megawad, const std::string& secondMegawad) {
     std::string command = doomEngine + " -iwad " + doomDir + "/iwads/" + iwad + " -file";
 
@@ -102,45 +103,14 @@ void DoomLauncher::launchDoom(const std::string& iwad, const std::string& megawa
     exit(0);
 };
 
-// Main loop
-void DoomLauncher::run() {
-    // Always starts on the first menu when program is launched.
-    menuState = 0;
-
-    // Makes it do hard to debug with these uncommented
-    //std::system("clear");
-
-    while (true) {
-        //std::system("clear");
-
-        if (menuState == 0) {
-            engineVisualMenu();
-            menuState = engineSelections();
-        }
-        else if (menuState == 1) {
-            modVisualMenu();
-            menuState = modSelections();
-        }
-        else if (menuState == 2) {
-            wadVisualMenu();
-            menuState = wadSelections();
-        }
-        else if (menuState == 3) {
-            backupVisualMenu();
-            menuState = backupSelections();
-        }
-    }
-}
-
-// Engine selection menu
-void DoomLauncher::engineVisualMenu() {
+// Engine menu
+void DoomLauncher::engineMenu() {
     std::cout << "1 GZDOOM" << std::endl;
     std::cout << "2 ZANDRONUM" << std::endl;
     std::cout << std::endl;
     std::cout << "#B) Make a backup" << std::endl;
     std::cout << "#0) Exit" << std::endl;
-}
-int DoomLauncher::engineSelections() {
+
     std::string choice;
     std::cout << "Select an engine to use (1-2): ";
     std::cin >> choice;
@@ -149,27 +119,26 @@ int DoomLauncher::engineSelections() {
     if (choice == "1") {
         doomEngine = "gzdoom";
         gzdScanner();
-        return 1;  // Go to mod menu
+        modMenu();  // Go to mod menu
     }
     else if (choice == "2") {
         doomEngine = "zandronum";
         zandScanner();
-        return 2;  // Skip to wad menu
+        wadMenu();  // Skip to wad menu
     }
     else if (choice == "0") {
         std::cout << "Exiting..." << std::endl;
         exit(0);
     }
     else if (choice == "B") {
-        return 3;  // Go to backup menu
+        backupMenu();  // Go to backup menu
     }
     else {
         std::cout << "Invalid selection! Try again." << std::endl;
-        return 0;  // Stay on engine menu
+        engineMenu();  // Stay on engine menu
     }
 }
 
-// Not finished
 int DoomLauncher::configureMods() {
     // Visually list mods in current order again.
     for (int i = 0; i < modList.size(); i++) {
@@ -234,26 +203,30 @@ int DoomLauncher::configureMods() {
                 configureMods();
             }
             else if (whatToDo == 2) {
-                //wadVisualMenu();
+                wadMenu();
             }
             else {
+                // Make these either run configureMods() again or figure out how to just prompt for reselect without having to run from scratch.
+                configureMods();
                 std::cout << "Invalid choice!" << std::endl;
             }
 
         }
         else {
-            // Make these either run configureMods() again or figure out how to just prompt for reselect without having to run from scratch.
-            // Right now, this will just cout and end the function I think, so not in a working state.
+            configureMods();
             std::cout << "Invalid choice!" << std::endl;
         }
     }
     else {
-    std::cout << "Invalid choice!" << std::endl;
+        configureMods();
+        std::cout << "Invalid choice!" << std::endl;
     }
+
+    return 0;
 }
 
-// Mod selection menu
-void DoomLauncher::modVisualMenu() {
+// Mod menu
+void DoomLauncher::modMenu() {
     // Creates the list of mods
     for (int i = 0; i < modList.size(); i++) {
         int position = i + 1;
@@ -271,53 +244,25 @@ void DoomLauncher::modVisualMenu() {
     std::cin >> choice;
 
     if (choice == "1") {
-        //wadMenu(); need to condense all my mod menus down to one function like this
+        wadMenu();
     }
     else if (choice == "2") {
         configureMods();
     }
     else if (choice == "B") {
-        backupVisualMenu();
+        backupMenu();
     }
     else if (choice == "0") {
         exit(0);
     }
     else {
         std::cout << "Invalid selection! Try again." << std::endl;
-        return modVisualMenu();  // Stay on mod menu
+        return modMenu();  // Stay on mod menu
     }
     
 }
-/*
-int DoomLauncher::modSelections() {
-    std::string choice;
-    std::cout << "Select a mod" << modList.size() << "): ";
-    std::cin >> choice;
-
-    for (int i = 0; i < modList.size(); i++) {
-        int number = i + 1;
-        if (choice == "")
-        //code
-        return 2;
-    }
-    if (choice == "1") {
-        modList.clear();  // Empty for vanilla
-        return 2;   // Go to wad menu
-    }
-    else if (choice == "B") {
-        return 3;  // Go to backup menu
-    }
-    else if (choice == "0") {
-        exit(0);
-    }
-    else {
-        std::cout << "Invalid selection! Try again." << std::endl;
-        return 1;  // Stay on mod menu
-    }
-}
-*/
-// Wad selection menu
-void DoomLauncher::wadVisualMenu() {
+// Wad menu
+void DoomLauncher::wadMenu() {
     std::cout << " 1 ULTIMATE DOOM + SIGIL" << std::endl;
     std::cout << " 2 DOOM II: Hell on Earth" << std::endl;
     std::cout << " 3 DOOM II: Master Levels" << std::endl;
@@ -332,8 +277,7 @@ void DoomLauncher::wadVisualMenu() {
     std::cout << std::endl;
     std::cout << "#B) Make a backup" << std::endl;
     std::cout << "#0) Exit" << std::endl;
-}
-int DoomLauncher::wadSelections() {
+
     std::string choice;
     std::cout << "Select an iwad (1-11): ";
     std::cin >> choice;
@@ -372,24 +316,23 @@ int DoomLauncher::wadSelections() {
         launchDoom("doom2.wad", megawads[10], megawads[11]);
     }
     else if (choice == "B") {
-        return 3;  // Go to backup menu
+        backupMenu();  // Go to backup menu
     }
     else if (choice == "0") {
         exit(0);
     }
     else {
         std::cout << "Invalid selection! Try again." << std::endl;
-        return 2;  // Stay on wad menu
+        wadMenu();  // Stay on wad menu
     }
 }
-// Backup selection menu
-void DoomLauncher::backupVisualMenu() {
+// Backup menu
+void DoomLauncher::backupMenu() {
     std::cout << "#G) Backup gzdoom.ini" << std::endl;
     std::cout << "#Z) Backup zandronum.ini" << std::endl;
     std::cout << std::endl;
     std::cout << "#0) Exit" << std::endl;
-}
-int DoomLauncher::backupSelections() {
+
     std::string choice;
     std::cout << "Choose which game to make a backup of: ";
     std::cin >> choice;
@@ -401,7 +344,7 @@ int DoomLauncher::backupSelections() {
             gzBackupDir,
             doomDir + "/gzd/gzdoom.ini"
         );
-        return 0;
+        engineMenu();
     }
     else if (choice == "Z") {
         std::cout << "Backing up GZDoom config to ~/Games/DOOM/zand/backups/zandronum.ini" << std::endl;
@@ -409,7 +352,7 @@ int DoomLauncher::backupSelections() {
             zandBackupDir,
             doomDir + "/zand/zandronum.ini"
         );
-        return 0;
+        engineMenu();
     }
     else if (choice == "0") {
         std::cout << "Exiting..." << std::endl;
@@ -418,6 +361,11 @@ int DoomLauncher::backupSelections() {
     else {
         std::cout << "Invalid selection! Try again." << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(1));
-        return 3;  // Stay on backup menu
+        backupMenu();  // Stay on backup menu
     }
+}
+
+// Main loop
+void DoomLauncher::run() {
+    engineMenu();
 }

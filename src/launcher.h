@@ -34,6 +34,10 @@ public:
     void modVisualMenu();
     void wadVisualMenu();
     void backupVisualMenu();
+    void engineMenu();
+    void modMenu();
+    void wadMenu();
+    void backupMenu();
 
     // Selection menu functions
     int engineSelections();
