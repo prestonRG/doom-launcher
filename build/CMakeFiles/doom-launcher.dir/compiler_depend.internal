@@ -4,6 +4,7 @@
 CMakeFiles/doom-launcher.dir/src/launcher.cpp.o
  /home/preston/Development/doom_launcher/src/launcher.cpp
  /home/preston/Development/doom_launcher/src/launcher.h
+ /home/preston/Development/doom_launcher/src/mod_scanner.h
  /usr/include/alloca.h
  /usr/include/asm-generic/bitsperlong.h
  /usr/include/asm-generic/errno-base.h

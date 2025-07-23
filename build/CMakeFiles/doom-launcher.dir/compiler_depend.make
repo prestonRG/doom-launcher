@@ -3,6 +3,7 @@
 
 CMakeFiles/doom-launcher.dir/src/launcher.cpp.o: /home/preston/Development/doom_launcher/src/launcher.cpp \
   /home/preston/Development/doom_launcher/src/launcher.h \
+  /home/preston/Development/doom_launcher/src/mod_scanner.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/errno-base.h \
@@ -756,12 +757,6 @@ CMakeFiles/doom-launcher.dir/src/launcher.cpp.o:
 
 /usr/include/c++/15.1.1/bits/fs_fwd.h:
 
-/usr/include/c++/15.1.1/bits/range_access.h:
-
-/usr/include/c++/15.1.1/istream:
-
-/usr/include/linux/stddef.h:
-
 /usr/include/c++/15.1.1/bits/nested_exception.h:
 
 /usr/include/c++/15.1.1/vector:
@@ -850,16 +845,6 @@ CMakeFiles/doom-launcher.dir/src/launcher.cpp.o:
 
 /usr/include/bits/libc-header-start.h:
 
-/usr/include/c++/15.1.1/bits/postypes.h:
-
-/usr/include/c++/15.1.1/bits/locale_classes.tcc:
-
-/usr/include/bits/floatn-common.h:
-
-/usr/include/c++/15.1.1/bits/stl_iterator_base_funcs.h:
-
-/usr/include/bits/types/mbstate_t.h:
-
 /usr/include/c++/15.1.1/bits/locale_facets.h:
 
 /usr/include/c++/15.1.1/bits/streambuf.tcc:
@@ -890,6 +875,38 @@ CMakeFiles/doom-launcher.dir/src/launcher.cpp.o:
 
 /usr/include/asm-generic/errno-base.h:
 
+/usr/include/c++/15.1.1/bits/postypes.h:
+
+/usr/include/c++/15.1.1/bits/locale_classes.tcc:
+
+/usr/include/bits/floatn-common.h:
+
+/usr/include/c++/15.1.1/bits/stl_iterator_base_funcs.h:
+
+/usr/include/bits/types/mbstate_t.h:
+
+/usr/include/bits/time64.h:
+
+/home/preston/Development/doom_launcher/src/mod_scanner.h:
+
+/usr/include/c++/15.1.1/bits/basic_string.tcc:
+
+/usr/include/linux/sched/types.h:
+
+/usr/include/c++/15.1.1/cerrno:
+
+/usr/include/asm-generic/posix_types.h:
+
+/usr/include/stdc-predef.h:
+
+/usr/include/bits/types/__sigset_t.h:
+
+/usr/include/c++/15.1.1/bits/ostream.h:
+
+/usr/include/bits/types/struct_FILE.h:
+
+/usr/include/asm/types.h:
+
 /usr/include/alloca.h:
 
 /usr/include/bits/stdint-least.h:
@@ -901,22 +918,6 @@ CMakeFiles/doom-launcher.dir/src/launcher.cpp.o:
 /usr/include/bits/types/clock_t.h:
 
 /usr/include/bits/types/__fpos_t.h:
-
-/usr/include/asm-generic/errno.h:
-
-/usr/include/bits/types/__sigset_t.h:
-
-/usr/include/c++/15.1.1/cerrno:
-
-/usr/include/asm-generic/posix_types.h:
-
-/usr/include/stdc-predef.h:
-
-/usr/include/c++/15.1.1/ext/atomicity.h:
-
-/usr/include/c++/15.1.1/bits/new_allocator.h:
-
-/usr/include/c++/15.1.1/cstdlib:
 
 /usr/include/bits/types/__mbstate_t.h:
 
@@ -936,9 +937,17 @@ CMakeFiles/doom-launcher.dir/src/launcher.cpp.o:
 
 /usr/include/asm/posix_types_64.h:
 
+/usr/include/c++/15.1.1/bits/new_allocator.h:
+
+/usr/include/c++/15.1.1/cstdlib:
+
 /usr/include/c++/15.1.1/bits/cxxabi_init_exception.h:
 
 /usr/include/bits/types/locale_t.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/c++/15.1.1/ext/atomicity.h:
 
 /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/error_constants.h:
 
@@ -994,9 +1003,9 @@ CMakeFiles/doom-launcher.dir/src/main.cpp.o:
 
 /usr/include/bits/types/sigset_t.h:
 
-/usr/include/c++/15.1.1/bits/stl_vector.h:
-
 /usr/include/asm-generic/int-ll64.h:
+
+/usr/include/c++/15.1.1/bits/stl_vector.h:
 
 /usr/include/c++/15.1.1/cwctype:
 
@@ -1048,11 +1057,11 @@ CMakeFiles/doom-launcher.dir/src/main.cpp.o:
 
 /usr/include/bits/types/clockid_t.h:
 
-/usr/include/c++/15.1.1/bits/ostream.h:
+/usr/include/c++/15.1.1/bits/range_access.h:
 
-/usr/include/asm/types.h:
+/usr/include/c++/15.1.1/istream:
 
-/usr/include/bits/types/struct_FILE.h:
+/usr/include/linux/stddef.h:
 
 /usr/include/c++/15.1.1/bits/refwrap.h:
 
@@ -1193,14 +1202,6 @@ CMakeFiles/doom-launcher.dir/src/main.cpp.o:
 /usr/include/bits/types/FILE.h:
 
 /usr/include/linux/posix_types.h:
-
-/usr/include/c++/15.1.1/bits/basic_string.tcc:
-
-/usr/include/linux/sched/types.h:
-
-/usr/include/bits/time64.h:
-
-/home/preston/Development/doom_launcher/src/mod_scanner.h:
 
 /usr/include/linux/types.h:
 
