@@ -29,20 +29,27 @@ std::string DoomLauncher::setupDoomDirectory() {
     return doomPath.string();
 }
 
-// Functions to find mods
-std::vector<string> DoomLauncher::gzdScanner() {
+// Functions to find files
+std::vector<std::string> DoomLauncher::gzdScanner() {
     std::filesystem::path modPath = std::filesystem::path(setupDoomDirectory()) / "gzd" / "mods";
 
     modList = findMods(modPath);
 
     return modList;
 }
-std::vector<string> DoomLauncher::zandScanner() {
-    std::filesystem::path modPath = std::filesystem::path(setupDoomDirectory()) / "gzd" / "mods";
+std::vector<std::string> DoomLauncher::zandScanner() {
+    std::filesystem::path modPath = std::filesystem::path(setupDoomDirectory()) / "zand" / "mods";
 
     modList = findMods(modPath);
 
     return modList;
+}
+std::vector<std::string> DoomLauncher::megawadScanner() {
+    std::filesystem::path megawadPath = std::filesystem::path(setupDoomDirectory()) / "megawads";
+
+    megawads = findMods(megawadPath);
+
+    return megawads;
 }
 
 // Constructor - initialize mod arrays
@@ -59,41 +66,19 @@ DoomLauncher::DoomLauncher() {
     std::string homeStr = std::string(home);
     gzBackupDir = homeStr + "/.config/gzdoom/gzdoom.ini";
     zandBackupDir = homeStr + "/.config/zandronum/zandronum.ini";
-
-    // Need to setup a megawad scanner. Shouldn't be too different from the mod scan code. I might even be able to make it one function called doomScanner();
-    megawads = {
-        // [0-4]
-        doomDir + "/megawads/masterlevels.wad",
-        doomDir + "/megawads/sigil.wad",
-        doomDir + "/megawads/sigil2.wad",
-        doomDir + "/megawads/Elementalism_Phase1_Full_Release_v1.3/Elementalism_Phase1_Full_Release_v1.3.pk3",
-        doomDir + "/megawads/Eviternity/Eviternity.wad",
-        // [5-9]
-        doomDir + "/megawads/eviternityii/Eviternity II.wad",
-        doomDir + "/megawads/Hellbnd/Hellbnd.wad",
-        doomDir + "/megawads/Hellbnd/HBFM29.wad", // Hellbound M29+
-        doomDir + "/megawads/ozonia-2.33-RC4-deluxe/ozonia-2.32-RC4.wad",
-        doomDir + "/megawads/valiant/Valiant.wad",
-        // [10-xx]
-        doomDir + "/megawads/Amalgoom_RC3/Amalgoom_RC3.wad",
-        doomDir + "/megawads/Amalgoom_RC3/Amalgoom_B-Side_RC3.wad"
-    };
 }
 
 // Launches doom with all selected settings.
-void DoomLauncher::launchDoom(const std::string& iwad, const std::string& megawad, const std::string& secondMegawad) {
+// Needs to be fixed but I am too tired right now 7/22/25 10:23pm
+void DoomLauncher::launchDoom(const std::string& iwad, const std::vector<std::string>& pickedMegawads) {
     std::string command = doomEngine + " -iwad " + doomDir + "/iwads/" + iwad + " -file";
-
-    // Add megawads if they exist.
-    if (!megawad.empty()) {
-        command += " " + megawad;
-        if (!secondMegawad.empty()) {
-            command += " " + secondMegawad;
-        }
-    }
 
     // Add mods from modList vector.
     for (const std::string& mod : modList) {
+        command += " " + mod;
+    }
+
+    for (const std::string& mod : pickedMegawads) {
         command += " " + mod;
     }
 
@@ -146,11 +131,7 @@ int DoomLauncher::configureMods() {
         std::cout << position << ") ";
         std::cout << modList[i] << std::endl;
     }
-    // Prompts user to select a mod.
-    // After, need to store that mod and allow the user to select another mod location to swap it with.
-    // So, maybe have this command take the mod selected, store it in firstMod, then prompt again and store that mod in secondMod.
-    // Then, just place them in the right place. So, I should probably also store the users number selections as an int and then use
-    //  that number in the vector like vector[userNumber] or something.
+    // Prompts user to select a mod to swap.
     int choice;
     std::cout << "Select a mod" << "(1-" << modList.size() << "): ";
     std::cin >> choice;
@@ -192,8 +173,8 @@ int DoomLauncher::configureMods() {
             }
 
             // Prompts to either continue configuring mods or continue with current configuration.
-            std::cout << "1) Swap another mod." << endl;
-            std::cout << "2) Done." << endl;
+            std::cout << "1) Swap another mod." << std::endl;
+            std::cout << "2) Done." << std::endl;
 
             int whatToDo;
             std::cout << "What would you like to do?: ";
@@ -257,73 +238,61 @@ void DoomLauncher::modMenu() {
     }
     else {
         std::cout << "Invalid selection! Try again." << std::endl;
-        return modMenu();  // Stay on mod menu
+        modMenu();  // Stay on mod menu
     }
     
 }
 // Wad menu
 void DoomLauncher::wadMenu() {
-    std::cout << " 1 ULTIMATE DOOM + SIGIL" << std::endl;
-    std::cout << " 2 DOOM II: Hell on Earth" << std::endl;
-    std::cout << " 3 DOOM II: Master Levels" << std::endl;
-    std::cout << " 4 TNT: Evilution" << std::endl;
-    std::cout << " 5 The Plutonia Experiment" << std::endl;
-    std::cout << " 6 Eviternity" << std::endl;
-    std::cout << " 7 Eviternity II" << std::endl;
-    std::cout << " 8 Hellbound" << std::endl;
-    std::cout << " 9 Ozonia" << std::endl;
-    std::cout << "10 Valiant" << std::endl;
-    std::cout << "11 Amalgoom" << std::endl;
+    std::vector<std::string> pickedMegawads;
+    // Display megawad options.
+    for (int i = 0; i < megawads.size(); i++) {
+        int position = i + 1;
+        std::cout << position << ") ";
+        std::cout << modList[i] << std::endl;
+    }
     std::cout << std::endl;
     std::cout << "#B) Make a backup" << std::endl;
     std::cout << "#0) Exit" << std::endl;
 
-    std::string choice;
-    std::cout << "Select an iwad (1-11): ";
+    int choice;
+    std::cout << "Select a megawad to play with or press 'c' to continue: ";
     std::cin >> choice;
 
-    if (choice == "1") {
-        launchDoom("doom.wad", megawads[1], megawads[2]);
-    }
-    else if (choice == "2") {
-        launchDoom("doom2.wad");
-    }
-    else if (choice == "3") {
-        launchDoom("doom2.wad", megawads[0]);
-    }
-    else if (choice == "4") {
-        launchDoom("tnt.wad");
-    }
-    else if (choice == "5") {
-        launchDoom("plutonia.wad");
-    }
-    else if (choice == "6") {
-        launchDoom("doom2.wad", megawads[4]);
-    }
-    else if (choice == "7") {
-        launchDoom("doom2.wad", megawads[5]);
-    }
-    else if (choice == "8") {
-        launchDoom("doom2.wad", megawads[6]);
-    }
-    else if (choice == "9") {
-        launchDoom("doom2.wad", megawads[8]);
-    }
-    else if (choice == "10") {
-        launchDoom("doom2.wad", megawads[9]);
-    }
-    else if (choice == "11") {
-        launchDoom("doom2.wad", megawads[10], megawads[11]);
-    }
-    else if (choice == "B") {
-        backupMenu();  // Go to backup menu
-    }
-    else if (choice == "0") {
-        exit(0);
+    if (choice >= 1 && choice <= megawads.size()) {
+        int selected = choice - 1;
+
+        std::string firstWad = megawads[selected];
+        std::cout << "You have selected " << megawads[selected] << std::endl;
+
+        for (int i = 0; i < modList.size(); i++) {
+            int position = i + 1;
+            std::cout << position << ") ";
+            std::cout << modList[i] << std::endl;
+        }
+        std::cout << "Select another megawad or press 'c' to continue: ";
+        std::cout << std::endl;
+        std::cout << "#B) Make a backup" << std::endl;
+        std::cout << "#0) Exit" << std::endl;
+
+        if (choice >= 1 && choice <= megawads.size()) {
+            int selected = choice - 1;
+
+            std::string secondWad = megawads[selected];
+            pickedMegawads.push_back(secondWad);
+            std::cout << "You have selected " << megawads[selected] << std::endl;
+        }
+        else {
+            std::cout << "Invalid selection! Try again." << std::endl;
+            wadMenu();
+        }
+
+        pickedMegawads.push_back(firstWad);
+        
     }
     else {
         std::cout << "Invalid selection! Try again." << std::endl;
-        wadMenu();  // Stay on wad menu
+        wadMenu();
     }
 }
 // Backup menu

@@ -29,11 +29,7 @@ public:
 
     void run();
 
-    // Visual menus
-    void engineVisualMenu();
-    void modVisualMenu();
-    void wadVisualMenu();
-    void backupVisualMenu();
+    // Menus
     void engineMenu();
     void modMenu();
     void wadMenu();
@@ -48,9 +44,10 @@ public:
 
     std::vector<std::string> gzdScanner();
     std::vector<std::string> zandScanner();
+    std::vector<std::string> megawadScanner();
     void loadOrderMenu();
 
     // Launch functions
-    [[noreturn]] void launchDoom(const std::string& iwad, const std::string& megawad = "", const std::string& secondMegawad = "");
+    [[noreturn]] void launchDoom(const std::string& iwad, const std::vector<std::string>& pickedMegawads);
     void launchBD64();
 };
