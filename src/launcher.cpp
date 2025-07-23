@@ -60,6 +60,7 @@ DoomLauncher::DoomLauncher() {
     gzBackupDir = homeStr + "/.config/gzdoom/gzdoom.ini";
     zandBackupDir = homeStr + "/.config/zandronum/zandronum.ini";
 
+    // Need to setup a megawad scanner. Shouldn't be too different from the mod scan code. I might even be able to make it one function called doomScanner();
     megawads = {
         // [0-4]
         doomDir + "/megawads/masterlevels.wad",
@@ -77,47 +78,6 @@ DoomLauncher::DoomLauncher() {
         doomDir + "/megawads/Amalgoom_RC3/Amalgoom_RC3.wad",
         doomDir + "/megawads/Amalgoom_RC3/Amalgoom_B-Side_RC3.wad"
     };
-    /*
-    vanillaPlus = {
-        doomDir + "/gzd/mods/vanilla_plus/nashgore.pk3",
-        doomDir + "/gzd/mods/vanilla_plus/Beautiful_Doom_716.pk3",
-        doomDir + "/gzd/mods/vanilla_plus/flashlight_plus_plus_v9_1.pk3",
-        doomDir + "/gzd/mods/music/DOOM Metal X IDKFA Soundtrack.pk3",
-        doomDir + "/gzd/mods/HUDs/Cats_CRT_HUD v1.0.1.pk3"
-    };
-
-    brutalMods = {
-        doomDir + "/gzd/mods/bd22Test5RC2.pk3",
-        doomDir + "/gzd/mods/music/DOOM Metal X IDKFA Soundtrack.pk3",
-        doomDir + "/gzd/mods/HDTextures.pk3",
-        doomDir + "/gzd/mods/mymod.wad",
-        doomDir + "/gzd/mods/HUDs/Cats_CRT_HUD v1.0.1.pk3"
-    };
-
-    brutalPlatinum = {
-        doomDir + "/gzd/mods/BrutalDoomPlatinumv3.1.1.pk3",
-        doomDir + "/gzd/mods/music/DOOM Metal X IDKFA Soundtrack.pk3",
-        doomDir + "/gzd/mods/mymod.wad",
-        doomDir + "/gzd/mods/HUDs/Cats_CRT_HUD v1.0.1.pk3"
-    };
-
-    projectBrutality = {
-        doomDir + "/gzd/mods/PB-0_3_1-alpha.pk3",
-        doomDir + "/gzd/mods/music/DOOM Metal X IDKFA Soundtrack.pk3"
-    };
-
-    brutalDoom64 = {
-        doomDir + "/gzd/mods/Brutal_Doom_64_v2.5_u30.12/bd64game_v2.5.pk3",
-        doomDir + "/gzd/mods/bd64maps_v2.5.pk3",
-        doomDir + "/gzd/mods/music/DOOM Metal X IDKFA Soundtrack.pk3"
-    };
-
-    zandronum = {
-        doomDir + "/zand/mods/bd22Test5RC2.pk3",
-        doomDir + "/zand/mods/music/DOOM Metal X IDKFA Soundtrack.pk3",
-        doomDir + "/zand/mods/mymod.wad"
-    };
-    */
 }
 
 void DoomLauncher::launchDoom(const std::string& iwad, const std::string& megawad, const std::string& secondMegawad) {
@@ -211,19 +171,81 @@ int DoomLauncher::engineSelections() {
 
 // Not finished
 int DoomLauncher::configureMods() {
+    // Visually list mods in current order again.
     for (int i = 0; i < modList.size(); i++) {
         int position = i + 1;
         std::cout << position << ") ";
         std::cout << modList[i] << std::endl;
     }
+    // Prompts user to select a mod.
+    // After, need to store that mod and allow the user to select another mod location to swap it with.
+    // So, maybe have this command take the mod selected, store it in firstMod, then prompt again and store that mod in secondMod.
+    // Then, just place them in the right place. So, I should probably also store the users number selections as an int and then use
+    //  that number in the vector like vector[userNumber] or something.
     int choice;
-    std::cout << "Select a mod" << modList.size() << "): ";
+    std::cout << "Select a mod" << "(1-" << modList.size() << "): ";
     std::cin >> choice;
 
     if (choice >= 1 && choice <= modList.size()) {
         int selected = choice - 1;
 
+        // Store number selected AND modList[selected]. Or, just use selected and modList[selected]. Those should be the two values I need.
+        // Consider updating the visual menu after to show the mod that has been selected on the menu, not just by text. Might be too complex for now and
+        //  not needed for functionality.
+        std::string firstMod = modList[selected];
+        int firstNumber = selected;
+
         std::cout << "You selected: " << modList[selected] << std::endl;
+
+        // Prompt user again for mod to swap with.
+        // Not sure if choice2 is the best naming scheme... Should first be choice1?
+        int choice2;
+        std::cout << "Select a mod to swap with" << "(1-" << modList.size() << "): ";
+        std::cin >> choice2;
+
+        if (choice2 >= 1 && choice2 <= modList.size()) {
+            int selected2 = choice2 - 1;
+            // Store second number and mod and swap places with the first selection. The numbers WILL NOT move. They are there as a reference
+            //  for where to place the two stored mods.
+            std::string secondMod = modList[selected2];
+            int secondNumber = selected2;
+
+            // Mods swap positions in the vector.
+            modList[firstNumber] = firstMod;
+            modList[secondNumber] = secondMod;
+            std::cout << "Swapped mod " << firstMod << " with " << secondMod << std::endl;
+
+            // Displays modList again so the user can see their new configuration.
+            for (int i = 0; i < modList.size(); i++) {
+                int position = i + 1;
+                std::cout << position << ") ";
+                std::cout << modList[i] << std::endl;
+            }
+
+            // Prompts to either continue configuring mods or continue with current configuration.
+            std::cout << "1) Swap another mod." << endl;
+            std::cout << "2) Done." << endl;
+
+            int whatToDo;
+            std::cout << "What would you like to do?: ";
+            std::cin >> whatToDo;
+
+            if (whatToDo == 1) {
+                configureMods();
+            }
+            else if (whatToDo == 2) {
+                //wadVisualMenu();
+            }
+            else {
+                std::cout << "Invalid choice!" << std::endl;
+            }
+
+        }
+        else {
+            // Make these either run configureMods() again or figure out how to just prompt for reselect without having to run from scratch.
+            // Right now, this will just cout and end the function I think, so not in a working state.
+            std::cout << "Invalid choice!" << std::endl;
+        }
     }
     else {
     std::cout << "Invalid choice!" << std::endl;
