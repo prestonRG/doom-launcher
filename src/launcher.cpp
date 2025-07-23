@@ -47,9 +47,9 @@ std::vector<std::string> DoomLauncher::zandScanner() {
 std::vector<std::string> DoomLauncher::megawadScanner() {
     std::filesystem::path megawadPath = std::filesystem::path(setupDoomDirectory()) / "megawads";
 
-    megawads = findMods(megawadPath);
+    megawadList = findMegawads(megawadPath);
 
-    return megawads;
+    return megawadList;
 }
 
 // Constructor - initialize mod arrays
@@ -132,8 +132,6 @@ void DoomLauncher::engineMenu() {
 
 // Game menu
 void DoomLauncher::gameMenu() {
-    std::string iwad;
-
     std::cout << "1 Doom" << std::endl;
     std::cout << "2 Doom II" << std::endl;
     std::cout << "3 Plutonia" << std::endl;
@@ -260,16 +258,17 @@ int DoomLauncher::configureMods() {
 // Mod menu
 void DoomLauncher::modMenu() {
     // Creates the list of mods
+    std::cout << "Available mods:" << std::endl;
     for (int i = 0; i < modList.size(); i++) {
         int position = i + 1;
         std::cout << position << ") ";
         std::cout << modList[i] << std::endl;
     }
     std::cout << std::endl;
-    std::cout << "#1) Run with selected mod order";
-    std::cout << "#2) Configure mod order";
-    std::cout << "#B) Make a backup" << std::endl;
-    std::cout << "#0) Exit" << std::endl;
+    std::cout << "1) Run with selected mod order" << std::endl;
+    std::cout << "2) Configure mod order" << std::endl;
+    std::cout << "B) Make a backup" << std::endl;
+    std::cout << "0) Exit" << std::endl;
 
     std::string choice;
     std::cout << "What do you want to do?: ";
@@ -295,13 +294,12 @@ void DoomLauncher::modMenu() {
 }
 // Wad menu
 void DoomLauncher::megawadMenu() {
-    std::vector<std::string> pickedMegawads;
     // Display megawad options.
     std::cout << "Available megawads:" << std::endl;
-    for (int i = 0; i < megawads.size(); i++) {
+    for (int i = 0; i < megawadList.size(); i++) {
         int position = i + 1;
         std::cout << position << ") ";
-        std::cout << megawads[i] << std::endl;
+        std::cout << megawadList[i] << std::endl;
     }
     std::cout << std::endl;
     std::cout << "#B) Make a backup" << std::endl;
@@ -314,11 +312,11 @@ void DoomLauncher::megawadMenu() {
     if (choice == 100) {
         modMenu();
     }
-    else if (choice >= 1 && choice <= megawads.size()) {
+    else if (choice >= 1 && choice <= megawadList.size()) {
         int selected = choice - 1;
 
-        std::string firstWad = megawads[selected];
-        std::cout << "You have selected " << megawads[selected] << std::endl;
+        std::string firstWad = megawadList[selected];
+        std::cout << "You have selected " << megawadList[selected] << std::endl;
 
         for (int i = 0; i < modList.size(); i++) {
             int position = i + 1;
@@ -330,12 +328,16 @@ void DoomLauncher::megawadMenu() {
         std::cout << "#B) Make a backup" << std::endl;
         std::cout << "#0) Exit" << std::endl;
 
-        if (choice >= 1 && choice <= megawads.size()) {
+        if (choice >= 1 && choice <= megawadList.size()) {
             int selected = choice - 1;
 
-            std::string secondWad = megawads[selected];
+            std::string secondWad = megawadList[selected];
             pickedMegawads.push_back(secondWad);
-            std::cout << "You have selected " << megawads[selected] << std::endl;
+            std::cout << "You have selected " << megawadList[selected] << std::endl;
+        }
+        else if (choice == 0) {
+            std::cout << "Exiting..." << std::endl;
+            exit(0);
         }
         else {
             std::cout << "Invalid selection! Try again." << std::endl;
@@ -344,6 +346,10 @@ void DoomLauncher::megawadMenu() {
 
         pickedMegawads.push_back(firstWad);
         
+    }
+    else if (choice == 0) {
+        std::cout << "Exiting..." << std::endl;
+        exit(0);
     }
     else {
         std::cout << "Invalid selection! Try again." << std::endl;

@@ -8,6 +8,9 @@ private:
     int menuState = 0;
     std::string doomEngine;
     std::vector<std::string> modList;
+    std::vector<std::string> megawadList;
+    std::vector<std::string> pickedMegawads;
+    std::string iwad;
 
     // Default doom path.
     std::string doomDir;

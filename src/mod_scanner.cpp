@@ -39,17 +39,19 @@ std::vector<std::string> findMegawads(std::string megawadPath) {
         // Checks for any .wad files in the specified path.
         if (extension == ".wad") {
             megawads.push_back(file.path().string());
+            std::cout << file.path() << std::endl;
         }
         else {
             std::cout << "Couldn't find anything!" << std::endl;
         }
     }
     // Recursively scan all folders
-    for (const auto& file : std::filesystem::recursive_directory_iterator("path/to/directory")) {
+    for (const auto& file : std::filesystem::recursive_directory_iterator(megawadPath)) {
         std::string filename = file.path().filename();
         std::string extension = file.path().extension();
         std::cout << "Found: " << filename << std::endl;
         if (extension == ".wad") {
+            megawads.push_back(file.path().string());
             std::cout << file.path() << std::endl;
         }
     }
