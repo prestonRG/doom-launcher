@@ -33,11 +33,25 @@ public:
     void run();
 
     // Menus
+    // I have the menus in this order with the idea that -
+    // 1. you first pick the engine you want to use
+    // 2. next, you pick the game (iwad) you want to play on that engine
+    // 3. then, you pick the megawads you want to use (if any) as these will use the iwad that was just selected (most use doom2.wad)
+    // 4. finally, you can select the mods you want to play with your chosen game
+    // So its like 3 choices to make over 4 steps (for example, if you want to play doom ii, you pick doom2.wad. if you want to play eviternity,
+    //  you have to still pick doom2.wad and then pick eviternity.)
+    // backupMenu() is optional and available to select from any other menu (except for a few maybe. i think you cant from modMenu's submenu,
+    //  modConfiguration())
     void engineMenu();
     void gameMenu();
-    void modMenu();
     void megawadMenu();
+    void modMenu();
     void backupMenu();
+    //enginemenu > pick gzdoom or zandronum (or whatever else)
+    //gamemenu > pick game > doom.wad doom2.wad etc.
+    //megawadmenu > pick map pack (if any)
+    //modmenu > pick mods
+    //backupmenu > option menu for backups (,ini files, saves, whatever else)
 
     // Selection menu functions
     int engineSelections();

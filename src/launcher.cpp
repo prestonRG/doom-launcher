@@ -172,7 +172,63 @@ void DoomLauncher::gameMenu() {
         gameMenu();  // Stay on game menu
     }
 }
+// Megawad menu
+void DoomLauncher::megawadMenu() {
+    megawadScanner();
+    // Display megawad options.
+    std::cout << "Available megawads:" << std::endl;
+    for (int i = 0; i < megawadList.size(); i++) {
+        int position = i + 1;
+        std::cout << position << ") ";
+        std::cout << megawadList[i] << std::endl;
+    }
+    std::cout << std::endl;
+    // doesnt work right now in this menu because of int choice
+    //std::cout << "#B) Make a backup" << std::endl;
+    std::cout << "#0) Exit" << std::endl;
 
+    int choice1;
+    std::cout << "Select a megawad to play with or press '100' to continue: ";
+    std::cin >> choice1;
+
+    if (choice1 == 100) {
+        modMenu();
+    }
+    else if (choice1 >= 1 && choice1 <= megawadList.size()) {
+        int selected = choice1 - 1;
+
+        std::string chosenWad = megawadList[selected];
+        std::cout << "You have selected " << megawadList[selected] << std::endl;
+
+        pickedMegawads.push_back(chosenWad);
+        
+    }
+    else if (choice1 == 0) {
+        std::cout << "Exiting..." << std::endl;
+        exit(0);
+    }
+    else {
+        std::cout << "Invalid selection! Try again." << std::endl;
+        megawadMenu();
+    }
+
+    std::string choice2;
+    std::cout << "Select another? Or press 'c' to continue: ";
+    std::cin >> choice2;
+
+    if (choice2 == "y") {
+        megawadMenu();
+    }
+    else if (choice2 == "c") {
+        modMenu();
+    }
+    else {
+        std::cout << "Invalid selection! Try again." << std::endl;
+        megawadMenu();
+    }
+}
+
+// Configure mods is a submenu of modMenu()
 int DoomLauncher::configureMods() {
     // Visually list mods in current order again.
     for (int i = 0; i < modList.size(); i++) {
@@ -233,7 +289,7 @@ int DoomLauncher::configureMods() {
                 configureMods();
             }
             else if (whatToDo == 2) {
-                megawadMenu();
+                launchDoom(iwad, pickedMegawads);
             }
             else {
                 // Make these either run configureMods() again or figure out how to just prompt for reselect without having to run from scratch.
@@ -275,7 +331,7 @@ void DoomLauncher::modMenu() {
     std::cin >> choice;
 
     if (choice == "1") {
-        megawadMenu();
+        launchDoom(iwad, pickedMegawads);
     }
     else if (choice == "2") {
         configureMods();
@@ -291,71 +347,6 @@ void DoomLauncher::modMenu() {
         modMenu();  // Stay on mod menu
     }
     
-}
-// Wad menu
-void DoomLauncher::megawadMenu() {
-    megawadScanner();
-    // Display megawad options.
-    std::cout << "Available megawads:" << std::endl;
-    for (int i = 0; i < megawadList.size(); i++) {
-        int position = i + 1;
-        std::cout << position << ") ";
-        std::cout << megawadList[i] << std::endl;
-    }
-    std::cout << std::endl;
-    std::cout << "#B) Make a backup" << std::endl;
-    std::cout << "#0) Exit" << std::endl;
-
-    int choice;
-    std::cout << "Select a megawad to play with or press '100' to continue: ";
-    std::cin >> choice;
-
-    if (choice == 100) {
-        modMenu();
-    }
-    else if (choice >= 1 && choice <= megawadList.size()) {
-        int selected = choice - 1;
-
-        std::string firstWad = megawadList[selected];
-        std::cout << "You have selected " << megawadList[selected] << std::endl;
-
-        for (int i = 0; i < modList.size(); i++) {
-            int position = i + 1;
-            std::cout << position << ") ";
-            std::cout << modList[i] << std::endl;
-        }
-        std::cout << "Select another megawad or press 'c' to continue: ";
-        std::cout << std::endl;
-        std::cout << "#B) Make a backup" << std::endl;
-        std::cout << "#0) Exit" << std::endl;
-
-        if (choice >= 1 && choice <= megawadList.size()) {
-            int selected = choice - 1;
-
-            std::string secondWad = megawadList[selected];
-            pickedMegawads.push_back(secondWad);
-            std::cout << "You have selected " << megawadList[selected] << std::endl;
-        }
-        else if (choice == 0) {
-            std::cout << "Exiting..." << std::endl;
-            exit(0);
-        }
-        else {
-            std::cout << "Invalid selection! Try again." << std::endl;
-            megawadMenu();
-        }
-
-        pickedMegawads.push_back(firstWad);
-        
-    }
-    else if (choice == 0) {
-        std::cout << "Exiting..." << std::endl;
-        exit(0);
-    }
-    else {
-        std::cout << "Invalid selection! Try again." << std::endl;
-        megawadMenu();
-    }
 }
 // Backup menu
 void DoomLauncher::backupMenu() {
