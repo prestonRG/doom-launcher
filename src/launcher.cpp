@@ -96,14 +96,14 @@ void DoomLauncher::launchDoom(const std::string& iwad, const std::vector<std::st
 
 // Engine menu
 void DoomLauncher::engineMenu() {
-    std::cout << "1 GZDOOM" << std::endl;
-    std::cout << "2 ZANDRONUM" << std::endl;
+    std::cout << "[1] GZDOOM" << std::endl;
+    std::cout << "[2] ZANDRONUM" << std::endl;
     std::cout << std::endl;
-    std::cout << "#B) Make a backup" << std::endl;
-    std::cout << "#0) Exit" << std::endl;
+    std::cout << BLUE << "[B] Make a backup" << RESET << std::endl;
+    std::cout << RED << "[0] Exit" << RESET << std::endl;
 
     std::string choice;
-    std::cout << "Select an engine to use (1-2): ";
+    std::cout << "Select an engine to use [1-2]: ";
     std::cin >> choice;
 
     // Immediately gets the relevant mods when an engine is selected.
@@ -131,17 +131,20 @@ void DoomLauncher::engineMenu() {
 }
 
 // Game menu
+// Could make it dynamic, but these are the only iwads I have and use
+// IDK how many iwads there are, but it might be easier to just add more elements to
+//  this menu than making it dynamic, at least for now.
 void DoomLauncher::gameMenu() {
-    std::cout << "1 Doom" << std::endl;
-    std::cout << "2 Doom II" << std::endl;
-    std::cout << "3 Plutonia" << std::endl;
-    std::cout << "4 TNT" << std::endl;
+    std::cout << "[1] Doom" << std::endl;
+    std::cout << "[2] Doom II" << std::endl;
+    std::cout << "[3] Plutonia" << std::endl;
+    std::cout << "[4] TNT" << std::endl;
     std::cout << std::endl;
-    std::cout << "#B) Make a backup" << std::endl;
-    std::cout << "#0) Exit" << std::endl;
+    std::cout << BLUE << "[B] Make a backup" << RESET << std::endl;
+    std::cout << RED << "[0] Exit" << RESET << std::endl;
 
     std::string choice;
-    std::cout << "Select a game to use (1-4): ";
+    std::cout << "Select a game to use [1-4]: ";
     std::cin >> choice;
 
     if (choice == "1") {
@@ -168,7 +171,7 @@ void DoomLauncher::gameMenu() {
         backupMenu();  // Go to backup menu
     }
     else {
-        std::cout << "Invalid selection! Try again." << std::endl;
+        std::cout << RED << "Invalid selection! Try again." << RESET << std::endl;
         gameMenu();  // Stay on game menu
     }
 }
@@ -176,19 +179,19 @@ void DoomLauncher::gameMenu() {
 void DoomLauncher::megawadMenu() {
     megawadScanner();
     // Display megawad options.
-    std::cout << "Available megawads:" << std::endl;
+    std::cout << CYAN << "Available megawads:" << RESET << std::endl;
     for (int i = 0; i < megawadList.size(); i++) {
         int position = i + 1;
-        std::cout << position << ") ";
+        std::cout << "[" << position << "] ";
         std::cout << megawadList[i] << std::endl;
     }
     std::cout << std::endl;
     // doesnt work right now in this menu because of int choice
     //std::cout << "#B) Make a backup" << std::endl;
-    std::cout << "#0) Exit" << std::endl;
+    std::cout << RED << "[0] Exit" << RESET << std::endl;
 
     int choice1;
-    std::cout << "Select a megawad to play with or press '100' to continue: ";
+    std::cout << "Select a megawad to play with or type \"100\" to continue: ";
     std::cin >> choice1;
 
     if (choice1 == 100) {
@@ -213,7 +216,7 @@ void DoomLauncher::megawadMenu() {
     }
 
     std::string choice2;
-    std::cout << "Select another? Or press 'c' to continue: ";
+    std::cout << "Select another " << GREEN << "(y)?" << RESET << " Or press 'c' to continue: ";
     std::cin >> choice2;
 
     if (choice2 == "y") {
@@ -223,7 +226,7 @@ void DoomLauncher::megawadMenu() {
         modMenu();
     }
     else {
-        std::cout << "Invalid selection! Try again." << std::endl;
+        std::cout << RED << "Invalid selection! Try again." << RESET << std::endl;
         megawadMenu();
     }
 }
@@ -233,12 +236,12 @@ int DoomLauncher::configureMods() {
     // Visually list mods in current order again.
     for (int i = 0; i < modList.size(); i++) {
         int position = i + 1;
-        std::cout << position << ") ";
+        std::cout << "[" << position << "] ";
         std::cout << modList[i] << std::endl;
     }
     // Prompts user to select a mod to swap.
     int choice;
-    std::cout << "Select a mod" << "(1-" << modList.size() << "): ";
+    std::cout << "Select a mod " << GREEN << "[1-" << modList.size() << "]: " << RESET;
     std::cin >> choice;
 
     if (choice >= 1 && choice <= modList.size()) {
@@ -255,7 +258,7 @@ int DoomLauncher::configureMods() {
         // Prompt user again for mod to swap with.
         // Not sure if choice2 is the best naming scheme... Should first be choice1?
         int choice2;
-        std::cout << "Select a mod to swap with" << "(1-" << modList.size() << "): ";
+        std::cout << "Select a mod to swap with" << GREEN << "[1-" << modList.size() << "]: " << RESET;
         std::cin >> choice2;
 
         if (choice2 >= 1 && choice2 <= modList.size()) {
@@ -278,8 +281,8 @@ int DoomLauncher::configureMods() {
             }
 
             // Prompts to either continue configuring mods or continue with current configuration.
-            std::cout << "1) Swap another mod." << std::endl;
-            std::cout << "2) Done." << std::endl;
+            std::cout << "[1] Swap another mod." << std::endl;
+            std::cout << "[2] Done." << std::endl;
 
             int whatToDo;
             std::cout << "What would you like to do?: ";
@@ -321,10 +324,10 @@ void DoomLauncher::modMenu() {
         std::cout << modList[i] << std::endl;
     }
     std::cout << std::endl;
-    std::cout << "1) Run with selected mod order" << std::endl;
-    std::cout << "2) Configure mod order" << std::endl;
-    std::cout << "B) Make a backup" << std::endl;
-    std::cout << "0) Exit" << std::endl;
+    std::cout << "[1] Run with selected mod order" << std::endl;
+    std::cout << "[2] Configure mod order" << std::endl;
+    std::cout << BLUE << "B) Make a backup" << RESET << std::endl;
+    std::cout << RED << "0) Exit" << RESET << std::endl;
 
     std::string choice;
     std::cout << "What do you want to do?: ";
@@ -343,17 +346,17 @@ void DoomLauncher::modMenu() {
         exit(0);
     }
     else {
-        std::cout << "Invalid selection! Try again." << std::endl;
+        std::cout << RED << "Invalid selection! Try again." << RESET << std::endl;
         modMenu();  // Stay on mod menu
     }
     
 }
 // Backup menu
 void DoomLauncher::backupMenu() {
-    std::cout << "#G) Backup gzdoom.ini" << std::endl;
-    std::cout << "#Z) Backup zandronum.ini" << std::endl;
+    std::cout << BLUE << "[G] Backup gzdoom.ini" << RESET << std::endl;
+    std::cout << BLUE << "[Z] Backup zandronum.ini" << RESET << std::endl;
     std::cout << std::endl;
-    std::cout << "#0) Exit" << std::endl;
+    std::cout << RED << "[0] Exit" << RESET << std::endl;
 
     std::string choice;
     std::cout << "Choose which game to make a backup of: ";
@@ -381,7 +384,7 @@ void DoomLauncher::backupMenu() {
         exit(0);
     }
     else {
-        std::cout << "Invalid selection! Try again." << std::endl;
+        std::cout << RED << "Invalid selection! Try again." << RESET << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(1));
         backupMenu();  // Stay on backup menu
     }
