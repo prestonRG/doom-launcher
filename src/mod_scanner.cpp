@@ -1,17 +1,16 @@
 #include "mod_scanner.h"
 #include <filesystem>
 #include <iostream>
-using namespace std;
 
 // Finds all of the doom mods in the proper directories.
-vector<string> findMods(string modPath) {
-    vector<string> mods;
-    cout << "Looking in: " << modPath << endl;
+std::vector<std::string> findMods(std::string modPath) {
+    std::vector<std::string> mods;
+    std::cout << "Looking in: " << modPath << std::endl;
 
     // Looks at all of the files in the specified directory and returns relevant ones.
-    for (auto& file : filesystem::directory_iterator(modPath)) {
-        string filename = file.path().filename();
-        string extension = file.path().extension();
+    for (auto& file : std::filesystem::directory_iterator(modPath)) {
+        std::string filename = file.path().filename();
+        std::string extension = file.path().extension();
         std::cout << "Found: " << filename << std::endl;
 
         // Checks for any .zip files and, if there are any, unzips them before proceeding (currently only warns).
@@ -25,4 +24,33 @@ vector<string> findMods(string modPath) {
     }
 
     return mods;
+}
+
+std::vector<std::string> findMegawads(std::string megawadPath) {
+    std::vector<std::string> megawads;
+    std::cout << "Looking in: " << megawadPath << std::endl;
+
+    // Looks at all of the files in the specified directory and returns relevant ones.
+    for (auto& file : std::filesystem::recursive_directory_iterator(megawadPath)) {
+        if (file.is_regular_file()) {
+            std::string filename = file.path().filename();
+            std::string extension = file.path().extension();
+            std::cout << "Found: " << filename << std::endl;
+            // Checks for any .wad files in the specified path.
+
+            if (extension == ".wad") {
+            megawads.push_back(file.path().string());
+            std::cout << file.path() << std::endl;
+            }
+        }
+    }
+    
+    if (megawads.empty()) {
+        std::cout << "No .wad files found in " << megawadPath << std::endl;
+    }
+    else {
+        std::cout << "Found " << megawads.size() << " .wad files" << std::endl;
+    }
+
+    return megawads;
 }

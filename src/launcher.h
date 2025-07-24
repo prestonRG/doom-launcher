@@ -8,6 +8,9 @@ private:
     int menuState = 0;
     std::string doomEngine;
     std::vector<std::string> modList;
+    std::vector<std::string> megawadList;
+    std::vector<std::string> pickedMegawads;
+    std::string iwad;
 
     // Default doom path.
     std::string doomDir;
@@ -29,14 +32,11 @@ public:
 
     void run();
 
-    // Visual menus
-    void engineVisualMenu();
-    void modVisualMenu();
-    void wadVisualMenu();
-    void backupVisualMenu();
+    // Menus
     void engineMenu();
+    void gameMenu();
     void modMenu();
-    void wadMenu();
+    void megawadMenu();
     void backupMenu();
 
     // Selection menu functions
@@ -48,9 +48,10 @@ public:
 
     std::vector<std::string> gzdScanner();
     std::vector<std::string> zandScanner();
+    std::vector<std::string> megawadScanner();
     void loadOrderMenu();
 
     // Launch functions
-    [[noreturn]] void launchDoom(const std::string& iwad, const std::string& megawad = "", const std::string& secondMegawad = "");
+    [[noreturn]] void launchDoom(const std::string& iwad, const std::vector<std::string>& pickedMegawads);
     void launchBD64();
 };

@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
 #include <string>
-using namespace std;
 
-vector<string> findMods(string modPath);
+std::vector<std::string> findMods(std::string modPath);
+std::vector<std::string> findMegawads(std::string megawadPath);
