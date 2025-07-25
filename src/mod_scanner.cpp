@@ -11,12 +11,13 @@ std::vector<std::string> findMods(std::string modPath) {
     for (auto& file : std::filesystem::directory_iterator(modPath)) {
         std::string filename = file.path().filename();
         std::string extension = file.path().extension();
-        std::cout << "Found: " << filename << std::endl;
+        std::string filePath4Color = file.path().parent_path();
+        std::cout << GREEN << "Found: " << RESET << YELLOW << filePath4Color << "/" << RESET << filename << std::endl;
 
         // Checks for any .zip files and, if there are any, unzips them before proceeding (currently only warns).
         if (extension == ".pk3" || extension == ".wad" || extension == ".zip") {
             if (extension == ".zip") {
-                // TODO
+                // TODO: see above
                 std::cout << "Warning: Found .zip file: " << filename << " - mod will likely not work properly." << std::endl;
             }
             mods.push_back(file.path().string());
@@ -35,9 +36,10 @@ std::vector<std::string> findMegawads(std::string megawadPath) {
         if (file.is_regular_file()) {
             std::string filename = file.path().filename();
             std::string extension = file.path().extension();
-            std::cout << "Found: " << filename << std::endl;
-            // Checks for any .wad files in the specified path.
+            std::string filePath4Color = file.path().parent_path();
+            std::cout << GREEN << "Found: " << RESET << YELLOW << filePath4Color << "/" << RESET << filename << std::endl;
 
+            // Checks for any .wad files in the specified path.
             if (extension == ".wad") {
             megawads.push_back(file.path().string());
             std::cout << file.path() << std::endl;
