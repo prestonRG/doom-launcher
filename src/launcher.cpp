@@ -6,6 +6,105 @@
 #include <filesystem>
 #include <thread>
 #include <chrono>
+#include <fstream>
+
+void DoomLauncher::saveConfig(const std::string& configName) {
+    std::string configPath = doomDir + "/" + configName + ".ini";
+
+    // Open/create .ini file
+    // This is for writing to the file
+    std::ofstream configFile(configPath);
+
+    if (!configFile.is_open()) {
+        std::cout << "Error: could not create a config file." << std::endl;
+        return;
+    }
+
+    // Writes everything into the file.
+    // name, engine, and iwad will all have one value while megawads and mods could have none or many.
+    configFile << "[Setup]" << std::endl;
+    configFile << "name=" << configName << std::endl;
+    configFile << "engine=" << doomEngine << std::endl;
+    configFile << "iwad=" << iwad << std::endl;
+    configFile << std::endl;
+
+    // Write mods section
+    configFile << "[Mods]" << std::endl;
+    for (int i = 0; i < modList.size(); i++) {
+        configFile << "mod" << (i + 1) << "=" << modList[i] << std::endl;
+    }
+    configFile << std::endl;
+
+    // Write megawads section
+    configFile << "[Megawads]" << std::endl;
+    for (int i = 0; i < pickedMegawads.size(); i++) {
+        configFile << "megawad" << (i + 1) << "=" << pickedMegawads[i] << std::endl;
+    }
+
+    configFile.close();
+
+    std::cout << "Configuration saved as: " << configPath << std::endl;
+}
+
+// Open the .ini to read what's in it.
+void DoomLauncher::loadConfig(const std::string& configName) {
+    std::string configPath = doomDir + "/" + configName + ".ini";
+    std::ifstream configFile(configPath);
+
+    if (!configFile.is_open()) {
+        std::cout << "Error: could not find config file: " << configPath << std::endl;
+        return;
+    }
+
+    std::string line;
+    std::string currentSection = "";
+
+    // Reads line by line
+    while (std::getline(configFile, line)) {
+        // Skip empty lines
+        if (line.empty()) continue;
+
+        // Check for section headers
+        if (line[0] == '[' && line.back() == ']') {
+            currentSection = line.substr(1, line.length() - 2); // Removes [ and ]
+            continue;
+        }
+
+        // Look for key=value pairs
+        size_t equals = line.find('=');
+        if (equals == std::string::npos) continue; // Skip lines without =
+
+        std::string key = line.substr(0, equals);
+        std::string value = line.substr(equals + 1);
+
+        // Handle different sections
+        if (currentSection == "Setup") {
+            if (key == "engine") {
+                doomEngine = value;
+            } else if (key == "iwad") {
+                iwad = value;
+            }
+        }
+        else if (currentSection == "Mods") {
+            if (key.substr(0, 3) == "mod") {
+                modList.push_back(value);
+            }
+        }
+        else if (currentSection == "Megawads") {
+            if (key.substr(0, 8) == "megawad") {
+                pickedMegawads.push_back(value);
+            }
+        }
+    }
+
+    configFile.close();
+    
+    std::cout << "Configuration loaded: " << configName << std::endl;
+    std::cout << "Engine: " << doomEngine << ", IWAD: " << iwad << std::endl;
+    std::cout << "Loaded " << modList.size() << " mods and " << pickedMegawads.size() << " megawads" << std::endl;
+}
+
+
 
 std::string DoomLauncher::setupDoomDirectory() {
     const char* home = std::getenv("HOME");
@@ -326,8 +425,9 @@ void DoomLauncher::modMenu() {
     std::cout << std::endl;
     std::cout << "[1] Run with selected mod order" << std::endl;
     std::cout << "[2] Configure mod order" << std::endl;
-    std::cout << BLUE << "B) Make a backup" << RESET << std::endl;
-    std::cout << RED << "0) Exit" << RESET << std::endl;
+    std::cout << "[3] Save current setup" << std::endl;
+    std::cout << BLUE << "[B] Make a backup" << RESET << std::endl;
+    std::cout << RED << "[0] Exit" << RESET << std::endl;
 
     std::string choice;
     std::cout << "What do you want to do?: ";
@@ -338,6 +438,13 @@ void DoomLauncher::modMenu() {
     }
     else if (choice == "2") {
         configureMods();
+    }
+    else if (choice == "3") {
+        std::string configName;
+        std::cout << "Type a name for your config: ";
+        std::cin.ignore(); // Clears any leftover newline so getline can read the user's input instead.
+        std::getline(std::cin, configName);
+        saveConfig(configName);
     }
     else if (choice == "B") {
         backupMenu();

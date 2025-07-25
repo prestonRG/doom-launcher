@@ -12,11 +12,15 @@ private:
     std::vector<std::string> pickedMegawads;
     std::string iwad;
 
-    // Default doom path.
+    // Default doom path
     std::string doomDir;
     std::string gzBackupDir;
     std::string zandBackupDir;
     std::string setupDoomDirectory();
+
+    // Save config
+    void saveConfig(const std::string& configName);
+    void loadConfig(const std::string& configName);
 
     // Mod vectors
     std::vector<std::string> megawads;
