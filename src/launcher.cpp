@@ -73,17 +73,17 @@ DoomLauncher::DoomLauncher() {
 void DoomLauncher::launchDoom(const std::string& iwad, const std::vector<std::string>& pickedMegawads) {
     std::string command = doomEngine + " -iwad " + doomDir + "/iwads/" + iwad + " -file";
 
-    // Adds mods from modList if there are any.
-    if (!modList.empty()) {
-        for (const std::string& mod : modList) {
-            command += " \"" + mod + "\"";
-        }
-    }
-
     // Adds megawads if any were selected.
     if (!pickedMegawads.empty()) {
         for (const std::string& megawad : pickedMegawads) {
             command += " \"" + megawad + "\"";
+        }
+    }
+
+    // Adds mods from modList if there are any.
+    if (!modList.empty()) {
+        for (const std::string& mod : modList) {
+            command += " \"" + mod + "\"";
         }
     }
 
