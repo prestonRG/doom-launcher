@@ -70,7 +70,7 @@ public:
     void loadOrderMenu();
 
     // Launch functions
-    [[noreturn]] void launchDoom(const std::string& iwad, const std::vector<std::string>& pickedMegawads);
+    [[noreturn]] void launchDoom(const std::string& iwad, const std::vector<std::string>& pickedMegawads, const std::vector<std::string>& modList);
     void launchBD64();
 
     // Colors

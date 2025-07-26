@@ -102,6 +102,8 @@ void DoomLauncher::loadConfig(const std::string& configName) {
     std::cout << "Configuration loaded: " << configName << std::endl;
     std::cout << "Engine: " << doomEngine << ", IWAD: " << iwad << std::endl;
     std::cout << "Loaded " << modList.size() << " mods and " << pickedMegawads.size() << " megawads" << std::endl;
+
+    launchDoom(iwad, pickedMegawads, modList);
 }
 
 
@@ -169,7 +171,7 @@ DoomLauncher::DoomLauncher() {
 
 // Launches doom with all selected settings.
 // Needs to be fixed but I am too tired right now 7/22/25 10:23pm
-void DoomLauncher::launchDoom(const std::string& iwad, const std::vector<std::string>& pickedMegawads) {
+void DoomLauncher::launchDoom(const std::string& iwad, const std::vector<std::string>& pickedMegawads, const std::vector<std::string>& modList) {
     std::string command = doomEngine + " -iwad " + doomDir + "/iwads/" + iwad + " -file";
 
     // Adds megawads if any were selected.
@@ -198,6 +200,7 @@ void DoomLauncher::engineMenu() {
     std::cout << "[1] GZDOOM" << std::endl;
     std::cout << "[2] ZANDRONUM" << std::endl;
     std::cout << std::endl;
+    std::cout << "TODO::add a load config option here." << std::endl;
     std::cout << BLUE << "[B] Make a backup" << RESET << std::endl;
     std::cout << RED << "[0] Exit" << RESET << std::endl;
 
@@ -234,6 +237,7 @@ void DoomLauncher::engineMenu() {
 // IDK how many iwads there are, but it might be easier to just add more elements to
 //  this menu than making it dynamic, at least for now.
 void DoomLauncher::gameMenu() {
+    std::cout << std::endl;
     std::cout << "[1] Doom" << std::endl;
     std::cout << "[2] Doom II" << std::endl;
     std::cout << "[3] Plutonia" << std::endl;
@@ -276,8 +280,11 @@ void DoomLauncher::gameMenu() {
 }
 // Megawad menu
 void DoomLauncher::megawadMenu() {
+    std::cout << std::endl;
+    std::cout << "Scanning for megwads:" << std::endl;
     megawadScanner();
     // Display megawad options.
+    std::cout << std::endl;
     std::cout << CYAN << "Available megawads:" << RESET << std::endl;
     for (int i = 0; i < megawadList.size(); i++) {
         int position = i + 1;
@@ -381,7 +388,8 @@ int DoomLauncher::configureMods() {
 
             // Prompts to either continue configuring mods or continue with current configuration.
             std::cout << "[1] Swap another mod." << std::endl;
-            std::cout << "[2] Done." << std::endl;
+            std::cout << "[2] Save current setup" << std::endl;
+            std::cout << "[3] Done." << std::endl;
 
             int whatToDo;
             std::cout << "What would you like to do?: ";
@@ -391,7 +399,14 @@ int DoomLauncher::configureMods() {
                 configureMods();
             }
             else if (whatToDo == 2) {
-                launchDoom(iwad, pickedMegawads);
+                std::string configName;
+                std::cout << "Type a name for your config: ";
+                std::cin.ignore(); // Clears any leftover newline so getline can read the user's input instead.
+                std::getline(std::cin, configName);
+                saveConfig(configName);
+            }
+            else if (whatToDo == 3) {
+                launchDoom(iwad, pickedMegawads, modList);
             }
             else {
                 // Make these either run configureMods() again or figure out how to just prompt for reselect without having to run from scratch.
@@ -416,7 +431,8 @@ int DoomLauncher::configureMods() {
 // Mod menu
 void DoomLauncher::modMenu() {
     // Creates the list of mods
-    std::cout << "Available mods:" << std::endl;
+    std::cout << std::endl;
+    std::cout << CYAN << "Available mods:" << RESET << std::endl;
     for (int i = 0; i < modList.size(); i++) {
         int position = i + 1;
         std::cout << position << ") ";
@@ -434,7 +450,7 @@ void DoomLauncher::modMenu() {
     std::cin >> choice;
 
     if (choice == "1") {
-        launchDoom(iwad, pickedMegawads);
+        launchDoom(iwad, pickedMegawads, modList);
     }
     else if (choice == "2") {
         configureMods();

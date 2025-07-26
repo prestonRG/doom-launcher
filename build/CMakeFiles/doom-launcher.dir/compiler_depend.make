@@ -101,6 +101,7 @@ CMakeFiles/doom-launcher.dir/src/launcher.cpp.o: /home/preston/Development/doom_
   /usr/include/c++/15.1.1/bits/fs_fwd.h \
   /usr/include/c++/15.1.1/bits/fs_ops.h \
   /usr/include/c++/15.1.1/bits/fs_path.h \
+  /usr/include/c++/15.1.1/bits/fstream.tcc \
   /usr/include/c++/15.1.1/bits/functexcept.h \
   /usr/include/c++/15.1.1/bits/functional_hash.h \
   /usr/include/c++/15.1.1/bits/hash_bytes.h \
@@ -181,6 +182,7 @@ CMakeFiles/doom-launcher.dir/src/launcher.cpp.o: /home/preston/Development/doom_
   /usr/include/c++/15.1.1/ext/string_conversions.h \
   /usr/include/c++/15.1.1/ext/type_traits.h \
   /usr/include/c++/15.1.1/filesystem \
+  /usr/include/c++/15.1.1/fstream \
   /usr/include/c++/15.1.1/initializer_list \
   /usr/include/c++/15.1.1/iomanip \
   /usr/include/c++/15.1.1/ios \
@@ -205,8 +207,10 @@ CMakeFiles/doom-launcher.dir/src/launcher.cpp.o: /home/preston/Development/doom_
   /usr/include/c++/15.1.1/typeinfo \
   /usr/include/c++/15.1.1/vector \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/atomic_word.h \
+  /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++config.h \
+  /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++io.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++locale.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/cpu_defines.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/ctype_base.h \
@@ -733,9 +737,9 @@ CMakeFiles/doom-launcher.dir/src/launcher.cpp.o:
 
 /usr/lib/ld-linux-x86-64.so.2:
 
-/usr/include/c++/15.1.1/bits/quoted_string.h:
+/usr/lib/libm.so:
 
-/usr/include/c++/15.1.1/bits/vector.tcc:
+/usr/lib/libgcc_s.so.1:
 
 /usr/include/c++/15.1.1/bits/parse_numbers.h:
 
@@ -772,6 +776,8 @@ CMakeFiles/doom-launcher.dir/src/launcher.cpp.o:
 /usr/include/c++/15.1.1/bits/chrono.h:
 
 /usr/include/sys/single_threaded.h:
+
+/usr/include/c++/15.1.1/bits/fstream.tcc:
 
 /usr/include/c++/15.1.1/bits/basic_ios.h:
 
@@ -828,8 +834,6 @@ CMakeFiles/doom-launcher.dir/src/launcher.cpp.o:
 /usr/include/ctype.h:
 
 /usr/include/bits/types/struct_sched_param.h:
-
-/usr/include/c++/15.1.1/bits/string_view.tcc:
 
 /usr/include/bits/types/struct_itimerspec.h:
 
@@ -904,8 +908,6 @@ CMakeFiles/doom-launcher.dir/src/launcher.cpp.o:
 /usr/include/c++/15.1.1/bits/ostream.h:
 
 /usr/include/bits/types/struct_FILE.h:
-
-/usr/include/asm/types.h:
 
 /usr/include/alloca.h:
 
@@ -1023,6 +1025,8 @@ CMakeFiles/doom-launcher.dir/src/main.cpp.o:
 
 /usr/include/c++/15.1.1/bits/stl_iterator.h:
 
+/usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++io.h:
+
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stdarg.h:
 
 /usr/include/bits/types/error_t.h:
@@ -1056,6 +1060,10 @@ CMakeFiles/doom-launcher.dir/src/main.cpp.o:
 /usr/include/bits/stdint-intn.h:
 
 /usr/include/bits/types/clockid_t.h:
+
+/usr/include/c++/15.1.1/bits/quoted_string.h:
+
+/usr/include/c++/15.1.1/bits/vector.tcc:
 
 /usr/include/c++/15.1.1/bits/range_access.h:
 
@@ -1097,11 +1105,11 @@ CMakeFiles/doom-launcher.dir/src/main.cpp.o:
 
 /usr/include/stdint.h:
 
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o:
+
 /usr/include/asm-generic/bitsperlong.h:
 
 /usr/include/asm-generic/types.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o:
 
 /usr/include/c++/15.1.1/bits/stringfwd.h:
 
@@ -1149,6 +1157,10 @@ CMakeFiles/doom-launcher.dir/src/main.cpp.o:
 
 /usr/include/c++/15.1.1/ext/string_conversions.h:
 
+/usr/include/asm/types.h:
+
+/usr/include/c++/15.1.1/fstream:
+
 /usr/include/c++/15.1.1/initializer_list:
 
 /usr/include/c++/15.1.1/ostream:
@@ -1160,8 +1172,6 @@ CMakeFiles/doom-launcher.dir/src/main.cpp.o:
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtendS.o:
 
 /usr/include/c++/15.1.1/stdexcept:
-
-/usr/lib/libgcc_s.so.1:
 
 /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/messages_members.h:
 
@@ -1176,6 +1186,16 @@ CMakeFiles/doom-launcher.dir/src/main.cpp.o:
 /usr/include/c++/15.1.1/thread:
 
 /usr/include/c++/15.1.1/typeinfo:
+
+/usr/include/c++/15.1.1/bits/string_view.tcc:
+
+/usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/basic_file.h:
+
+/usr/lib/libstdc++.so:
+
+/usr/include/c++/15.1.1/bits/memoryfwd.h:
+
+/usr/include/locale.h:
 
 /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++allocator.h:
 
@@ -1244,11 +1264,3 @@ CMakeFiles/doom-launcher.dir/src/main.cpp.o:
 /usr/include/c++/15.1.1/debug/debug.h:
 
 /usr/lib/libgcc_s.so:
-
-/usr/lib/libm.so:
-
-/usr/include/c++/15.1.1/bits/memoryfwd.h:
-
-/usr/include/locale.h:
-
-/usr/lib/libstdc++.so:
