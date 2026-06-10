@@ -48,9 +48,9 @@ g++ -std=c++17 -o doom_launcher main.cpp launcher.cpp mod_scanner.cpp -lstdc++fs
 
 Right now the user would have to build the project themselves with cmake and then launch it from the terminal to use this.
 
-## About
+## Current Status
 
-I started making this after falling in love with the original dooms and then modding them. I know there are other mod loaders out there, but I have never used them. I am pretty new to modding, and at first, I was launching my mods by copying and pasting the commands in my terminal. I eventually made a script to make it easier for myself, but kept wanting to add more and more features. I decided to turn this into an actual project and use it to finally start learning how to program. If my code, structure, or methods seem ridiculous, that's probably why.
+I have been very busy and have halted progress on this project for the time being.
 
 ## Contributing
 
