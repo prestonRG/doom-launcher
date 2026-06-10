@@ -1,6 +1,3 @@
-doom mod launcher
-made by preston
-
 # Doom Launcher
 
 A mod launcher for Doom games that helps organize and launch mods with GZDoom and Zandronum.
