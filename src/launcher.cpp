@@ -134,21 +134,21 @@ std::string DoomLauncher::setupDoomDirectory() {
 std::vector<std::string> DoomLauncher::gzdScanner() {
     std::filesystem::path modPath = std::filesystem::path(setupDoomDirectory()) / "gzd" / "mods";
 
-    modList = findMods(modPath);
+    modList = findMods(modPath.string());
 
     return modList;
 }
 std::vector<std::string> DoomLauncher::zandScanner() {
     std::filesystem::path modPath = std::filesystem::path(setupDoomDirectory()) / "zand" / "mods";
 
-    modList = findMods(modPath);
+    modList = findMods(modPath.string());
 
     return modList;
 }
 std::vector<std::string> DoomLauncher::megawadScanner() {
     std::filesystem::path megawadPath = std::filesystem::path(setupDoomDirectory()) / "megawads";
 
-    megawadList = findMegawads(megawadPath);
+    megawadList = findMegawads(megawadPath.string());
 
     return megawadList;
 }

@@ -9,9 +9,9 @@ std::vector<std::string> findMods(std::string modPath) {
 
     // Looks at all of the files in the specified directory and returns relevant ones.
     for (auto& file : std::filesystem::directory_iterator(modPath)) {
-        std::string filename = file.path().filename();
-        std::string extension = file.path().extension();
-        std::string filePath4Color = file.path().parent_path();
+        std::string filename = file.path().filename().string();
+        std::string extension = file.path().extension().string();
+        std::string filePath4Color = file.path().parent_path().string();
         std::cout << GREEN << "Found: " << RESET << YELLOW << filePath4Color << "/" << RESET << filename << std::endl;
 
         // Checks for any .zip files and, if there are any, unzips them before proceeding (currently only warns).
@@ -34,9 +34,9 @@ std::vector<std::string> findMegawads(std::string megawadPath) {
     // Looks at all of the files in the specified directory and returns relevant ones.
     for (auto& file : std::filesystem::recursive_directory_iterator(megawadPath)) {
         if (file.is_regular_file()) {
-            std::string filename = file.path().filename();
-            std::string extension = file.path().extension();
-            std::string filePath4Color = file.path().parent_path();
+            std::string filename = file.path().filename().string();
+            std::string extension = file.path().extension().string();
+            std::string filePath4Color = file.path().parent_path().string();
             std::cout << GREEN << "Found: " << RESET << YELLOW << filePath4Color << "/" << RESET << filename << std::endl;
 
             // Checks for any .wad files in the specified path.

@@ -1,3 +1,0 @@
-/home/preston/Development/doom_launcher/build/CMakeFiles/doom-launcher.dir
-/home/preston/Development/doom_launcher/build/CMakeFiles/edit_cache.dir
-/home/preston/Development/doom_launcher/build/CMakeFiles/rebuild_cache.dir
