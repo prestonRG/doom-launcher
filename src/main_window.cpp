@@ -90,7 +90,7 @@ QStringList fromJsonArray(const QJsonValue& value) {
 } // namespace
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
-    setWindowTitle("Doom Launcher");
+    setWindowTitle("DOOM Launcher");
     resize(900, 620);
 
     doomDirectory = QDir(QDir::homePath()).filePath("Games/DOOM");
