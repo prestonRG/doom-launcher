@@ -3,6 +3,7 @@
 #include <QAbstractItemView>
 #include <QByteArray>
 #include <QComboBox>
+#include <QDesktopServices>
 #include <QDir>
 #include <QDirIterator>
 #include <QFile>
@@ -29,6 +30,7 @@
 #include <QStatusBar>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QUrl>
 #include <stdexcept>
 
 namespace {
@@ -119,13 +121,28 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     auto* engineLayout = new QHBoxLayout(engineRow);
     engineLayout->setContentsMargins(0, 0, 0, 0);
     auto* browseEngine = new QPushButton("Browse...", engineRow);
+    auto* downloadEngines = new QPushButton("Download engines...", engineRow);
     engineLayout->addWidget(engineCombo, 1);
     engineLayout->addWidget(browseEngine);
+    engineLayout->addWidget(downloadEngines);
     form->addRow("Engine", engineRow);
 
     iwadCombo = new QComboBox(central);
     form->addRow("IWAD", iwadCombo);
+    auto* buyDoom = new QPushButton("Buy DOOM / DOOM II", central);
+    form->addRow("", buyDoom);
     mainLayout->addLayout(form);
+
+    connect(downloadEngines, &QPushButton::clicked, this, [this]() {
+        if (!QDesktopServices::openUrl(QUrl("https://zdoom.org/downloads"))) {
+            QMessageBox::warning(this, "Unable to open link", "Could not open the engine downloads page.");
+        }
+    });
+    connect(buyDoom, &QPushButton::clicked, this, [this]() {
+        if (!QDesktopServices::openUrl(QUrl("https://doom.bethesda.net/en-US/doom_doomii"))) {
+            QMessageBox::warning(this, "Unable to open link", "Could not open the DOOM purchase page.");
+        }
+    });
 
     auto* lists = new QHBoxLayout();
     megawadList = new QListWidget(central);

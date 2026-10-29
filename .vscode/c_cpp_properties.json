@@ -4,10 +4,7 @@
             "name": "CMake",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/include/x86_64-linux-gnu/qt6/",
-                "/usr/include/x86_64-linux-gnu/qt6/QtWidgets",
-                "/usr/include/x86_64-linux-gnu/qt6/QtCore",
-                "/usr/include/x86_64-linux-gnu/qt6/QtGui"
+                "/usr/include/x86_64-linux-gnu/qt6/**"
             ],
             "defines": [],
             "cppStandard": "c++17"
